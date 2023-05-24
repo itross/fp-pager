@@ -4,6 +4,21 @@ const { test } = require('tap')
 const build = require('./build.js')
 const pagerPlugin = require('..')
 
+const users = [
+  { id: 1, username: 'frank.zappa' },
+  { id: 2, username: 'warren.cuccurullo' },
+  { id: 3, username: 'nacho.libre' },
+  { id: 4, username: 'lou.ferrigno' },
+  { id: 5, username: 'bus.spencer' },
+  { id: 6, username: 'terence.hill' },
+  { id: 7, username: 'frank.zappa' },
+  { id: 8, username: 'warren.cuccurullo' },
+  { id: 9, username: 'nacho.libre' },
+  { id: 10, username: 'lou.ferrigno' },
+  { id: 11, username: 'bus.spencer' },
+  { id: 12, username: 'terence.hill' }
+]
+
 test('Should decorate request and response', async (t) => {
   t.plan(4)
   const app = await build(t)
@@ -55,20 +70,6 @@ test('Should return paged response with full links set', async (t) => {
     t.equal(page.page, 1)
     t.equal(page.size, 2)
 
-    const users = [
-      { id: 1, username: 'frank.zappa' },
-      { id: 2, username: 'warren.cuccurullo' },
-      { id: 3, username: 'nacho.libre' },
-      { id: 4, username: 'lou.ferrigno' },
-      { id: 5, username: 'bus.spencer' },
-      { id: 6, username: 'terence.hill' },
-      { id: 7, username: 'frank.zappa' },
-      { id: 8, username: 'warren.cuccurullo' },
-      { id: 9, username: 'nacho.libre' },
-      { id: 10, username: 'lou.ferrigno' },
-      { id: 11, username: 'bus.spencer' },
-      { id: 12, username: 'terence.hill' }
-    ]
     return reply.paged({ results: users, total: 12 })
   })
 
@@ -104,20 +105,6 @@ test('Should return paged response without the prev link', async (t) => {
     t.equal(page.page, 0)
     t.equal(page.size, 2)
 
-    const users = [
-      { id: 1, username: 'frank.zappa' },
-      { id: 2, username: 'warren.cuccurullo' },
-      { id: 3, username: 'nacho.libre' },
-      { id: 4, username: 'lou.ferrigno' },
-      { id: 5, username: 'bus.spencer' },
-      { id: 6, username: 'terence.hill' },
-      { id: 7, username: 'frank.zappa' },
-      { id: 8, username: 'warren.cuccurullo' },
-      { id: 9, username: 'nacho.libre' },
-      { id: 10, username: 'lou.ferrigno' },
-      { id: 11, username: 'bus.spencer' },
-      { id: 12, username: 'terence.hill' }
-    ]
     return reply.paged({ results: users, total: 12 })
   })
 
@@ -153,20 +140,6 @@ test('Should return paged response without the next link', async (t) => {
     t.equal(page.page, 5)
     t.equal(page.size, 2)
 
-    const users = [
-      { id: 1, username: 'frank.zappa' },
-      { id: 2, username: 'warren.cuccurullo' },
-      { id: 3, username: 'nacho.libre' },
-      { id: 4, username: 'lou.ferrigno' },
-      { id: 5, username: 'bus.spencer' },
-      { id: 6, username: 'terence.hill' },
-      { id: 7, username: 'frank.zappa' },
-      { id: 8, username: 'warren.cuccurullo' },
-      { id: 9, username: 'nacho.libre' },
-      { id: 10, username: 'lou.ferrigno' },
-      { id: 11, username: 'bus.spencer' },
-      { id: 12, username: 'terence.hill' }
-    ]
     return reply.paged({ results: users, total: 12 })
   })
 
