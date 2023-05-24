@@ -1,0 +1,38 @@
+{
+  "name": "@itross/fp-pager",
+  "version": "0.1.0",
+  "description": "Fastify plugin to get pagination params from request and return paged resources in response",
+  "main": "index.js",
+  "scripts": {
+    "test": "tap test/*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itross/fp-pager.git"
+  },
+  "keywords": [
+    "fastify",
+    "pagination",
+    "paged",
+    "request",
+    "response"
+  ],
+  "author": "Luca Stasio <joshuagame@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/itross/fp-pager/issues"
+  },
+  "homepage": "https://github.com/itross/fp-pager#readme",
+  "dependencies": {
+    "fastify-plugin": "^4.5.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.41.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.7.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "fastify": "^4.17.0",
+    "tap": "^16.3.4"
+  }
+}
