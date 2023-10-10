@@ -1,6 +1,6 @@
 {
   "name": "@itross/fp-pager",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Fastify plugin to get pagination params from request and return paged resources in response",
   "main": "index.js",
   "scripts": {

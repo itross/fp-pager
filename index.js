@@ -14,6 +14,7 @@ function sanitize (page, size) {
   page = typeof page === 'number' ? page : parseInt(page, 0)
   size = typeof size === 'number' ? size : parseInt(size, 0)
 
+  // set first page to 0 (useful for something like Objection.js)
   --page
 
   if (isNaN(page) || page < 0) {
@@ -24,9 +25,15 @@ function sanitize (page, size) {
     size = DEFAULT_PAGE_SIZE
   }
 
+  // these to be used, maybe, in raw sql queries
+  const limit = size
+  const offset = (page + 1) * size - size
+
   return {
     page,
-    size
+    size,
+    limit,
+    offset
   }
 }
 

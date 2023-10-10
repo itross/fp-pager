@@ -40,13 +40,15 @@ test('Should decorate request and response', async (t) => {
 })
 
 test('Should decorate request and response without page query param', async (t) => {
-  t.plan(3)
+  t.plan(5)
   const app = await build(t)
   await app.register(pagerPlugin)
 
   app.get('/users', async (request, reply) => {
     const page = request.page()
     t.equal(page.page, 0)
+    t.equal(page.limit, 15)
+    t.equal(page.offset, 0)
     return 'ok'
   })
 
@@ -60,7 +62,7 @@ test('Should decorate request and response without page query param', async (t) 
 })
 
 test('Should return paged response with full links set', async (t) => {
-  t.plan(15)
+  t.plan(17)
   const app = await build(t)
   await app.register(pagerPlugin)
 
@@ -69,6 +71,8 @@ test('Should return paged response with full links set', async (t) => {
     t.ok(page)
     t.equal(page.page, 1)
     t.equal(page.size, 2)
+    t.equal(page.limit, 2)
+    t.equal(page.offset, 2)
 
     return reply.paged({ results: users, total: 12 })
   })
@@ -95,7 +99,7 @@ test('Should return paged response with full links set', async (t) => {
 })
 
 test('Should return paged response without the prev link', async (t) => {
-  t.plan(14)
+  t.plan(16)
   const app = await build(t)
   await app.register(pagerPlugin)
 
@@ -104,6 +108,8 @@ test('Should return paged response without the prev link', async (t) => {
     t.ok(page)
     t.equal(page.page, 0)
     t.equal(page.size, 2)
+    t.equal(page.limit, 2)
+    t.equal(page.offset, 0)
 
     return reply.paged({ results: users, total: 12 })
   })
@@ -130,7 +136,7 @@ test('Should return paged response without the prev link', async (t) => {
 })
 
 test('Should return paged response without the next link', async (t) => {
-  t.plan(14)
+  t.plan(16)
   const app = await build(t)
   await app.register(pagerPlugin)
 
@@ -139,6 +145,8 @@ test('Should return paged response without the next link', async (t) => {
     t.ok(page)
     t.equal(page.page, 5)
     t.equal(page.size, 2)
+    t.equal(page.limit, 2)
+    t.equal(page.offset, 10)
 
     return reply.paged({ results: users, total: 12 })
   })
