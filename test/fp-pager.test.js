@@ -74,7 +74,7 @@ test('Should return paged response with full links set', async (t) => {
     t.equal(page.limit, 2)
     t.equal(page.offset, 2)
 
-    return reply.paged({ results: users, total: 12 })
+    return reply.paged({ results: users.slice(page.offset + 1, page.limit + page.offset + 1), total: 12 })
   })
 
   const response = await app.inject({
@@ -111,7 +111,7 @@ test('Should return paged response without the prev link', async (t) => {
     t.equal(page.limit, 2)
     t.equal(page.offset, 0)
 
-    return reply.paged({ results: users, total: 12 })
+    return reply.paged({ results: users.slice(page.offset + 1, page.limit + page.offset + 1), total: 12 })
   })
 
   const response = await app.inject({
@@ -143,17 +143,17 @@ test('Should return paged response without the next link', async (t) => {
   app.get('/users', async (request, reply) => {
     const page = request.page()
     t.ok(page)
-    t.equal(page.page, 5)
+    t.equal(page.page, 4)
     t.equal(page.size, 2)
     t.equal(page.limit, 2)
-    t.equal(page.offset, 10)
+    t.equal(page.offset, 8)
 
-    return reply.paged({ results: users, total: 12 })
+    return reply.paged({ results: users.slice(page.offset + 1, page.limit + page.offset + 1), total: 12 })
   })
 
   const response = await app.inject({
     method: 'GET',
-    path: '/users?page=6&size=2'
+    path: '/users?page=5&size=2'
   })
 
   const paged = response.json()
@@ -164,12 +164,12 @@ test('Should return paged response without the next link', async (t) => {
   t.ok(paged.results)
 
   t.equal(paged.page.items, 2)
-  t.equal(paged.page.page, 6)
+  t.equal(paged.page.page, 5)
   t.equal(paged.page.total, 12)
   t.equal(paged.page.pages, 6)
   t.equal(paged.page.first, '/users?page=1&size=2')
   t.equal(paged.page.last, '/users?page=6&size=2')
-  t.equal(paged.page.prev, '/users?page=5&size=2')
+  t.equal(paged.page.prev, '/users?page=4&size=2')
 })
 
 test('Should decorate request and response even with page and size params as strnigs', async (t) => {

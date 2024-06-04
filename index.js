@@ -74,9 +74,17 @@ function createPagedResponseGenerator (opts) {
     const requestBaseUrl = request.url.split('?')[0]
     const first = `${requestBaseUrl}?${pageParam}=1&${pageSizeParam}=${size}`
     const last = `${requestBaseUrl}?${pageParam}=${pages}&${pageSizeParam}=${size}`
+
+    if (!results) {
+      results = []
+    }
+    if (!Array.isArray(results)) {
+      results = [results]
+    }
+
     const paged = {
       page: {
-        items: size,
+        items: results.length,
         page: page + 1,
         total,
         pages,
